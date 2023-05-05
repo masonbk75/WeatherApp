@@ -28,6 +28,8 @@
 		D645AE922A045FEA00112B10 /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645AE912A045FEA00112B10 /* WeatherData.swift */; };
 		D645AE942A046C3700112B10 /* NetworkingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645AE932A046C3700112B10 /* NetworkingService.swift */; };
 		D645AE9A2A056CED00112B10 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = D645AE992A056CED00112B10 /* Keys.plist */; };
+		D6C9E9CB2A057F62009DB59C /* Configurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C9E9CA2A057F62009DB59C /* Configurable.swift */; };
+		D6C9E9CD2A059848009DB59C /* WelcomeFlowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C9E9CC2A059848009DB59C /* WelcomeFlowController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +75,8 @@
 		D645AE912A045FEA00112B10 /* WeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
 		D645AE932A046C3700112B10 /* NetworkingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingService.swift; sourceTree = "<group>"; };
 		D645AE992A056CED00112B10 /* Keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
+		D6C9E9CA2A057F62009DB59C /* Configurable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configurable.swift; sourceTree = "<group>"; };
+		D6C9E9CC2A059848009DB59C /* WelcomeFlowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeFlowController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,6 +174,7 @@
 				D645AE7B2A040E0500112B10 /* FlowController.swift */,
 				D645AE792A040DF700112B10 /* RootFlowController.swift */,
 				D645AE7F2A04106400112B10 /* WeatherFlowController.swift */,
+				D6C9E9CC2A059848009DB59C /* WelcomeFlowController.swift */,
 			);
 			path = FlowControllers;
 			sourceTree = "<group>";
@@ -191,6 +196,7 @@
 			isa = PBXGroup;
 			children = (
 				D645AE822A04110100112B10 /* NavigatingFlowController.swift */,
+				D6C9E9CA2A057F62009DB59C /* Configurable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -343,8 +349,10 @@
 				D645AE942A046C3700112B10 /* NetworkingService.swift in Sources */,
 				D645AE8A2A041BF100112B10 /* DetailsViewController.swift in Sources */,
 				D645AE802A04106400112B10 /* WeatherFlowController.swift in Sources */,
+				D6C9E9CD2A059848009DB59C /* WelcomeFlowController.swift in Sources */,
 				D645AE922A045FEA00112B10 /* WeatherData.swift in Sources */,
 				D645AE442A04068900112B10 /* AppDelegate.swift in Sources */,
+				D6C9E9CB2A057F62009DB59C /* Configurable.swift in Sources */,
 				D645AE462A04068900112B10 /* SceneDelegate.swift in Sources */,
 				D645AE832A04110100112B10 /* NavigatingFlowController.swift in Sources */,
 				D645AE7A2A040DF700112B10 /* RootFlowController.swift in Sources */,

@@ -12,8 +12,13 @@ struct WeatherData: Decodable {
     let cityName: String
     let overview: [Overview]
     let mainTemp: MainTemperature
+    let rain: Rain?
+    let snow: Snow?
+    let clouds: Clouds
+    let wind: Wind
     
     enum CodingKeys: String, CodingKey {
+        case rain, snow, clouds, wind
         case cityName = "name"
         case overview = "weather"
         case mainTemp = "main"
@@ -24,6 +29,10 @@ struct WeatherData: Decodable {
         self.cityName = try container.decode(String.self, forKey: .cityName)
         self.overview = try container.decode([Overview].self, forKey: .overview)
         self.mainTemp = try container.decode(MainTemperature.self, forKey: .mainTemp)
+        self.rain = try container.decodeIfPresent(Rain.self, forKey: .rain)
+        self.snow = try container.decodeIfPresent(Snow.self, forKey: .snow)
+        self.clouds = try container.decode(Clouds.self, forKey: .clouds)
+        self.wind = try container.decode(Wind.self, forKey: .wind)
     }
 }
 
@@ -31,15 +40,11 @@ struct WeatherData: Decodable {
 struct MainTemperature: Decodable {
     let temp: Double
     let feelsLike: Double
-    let min: Double // optional
-    let max: Double
     let humidity: Double
     
     enum CodingKeys: String, CodingKey {
         case temp, humidity
         case feelsLike = "feels_like"
-        case min = "temp_min"
-        case max = "temp_max"
     }
     
     init(from decoder: Decoder) throws {
@@ -47,8 +52,6 @@ struct MainTemperature: Decodable {
         self.temp = try container.decode(Double.self, forKey: .temp)
         self.humidity = try container.decode(Double.self, forKey: .humidity)
         self.feelsLike = try container.decode(Double.self, forKey: .feelsLike)
-        self.min = try container.decode(Double.self, forKey: .min)
-        self.max = try container.decode(Double.self, forKey: .max)
     }
 }
 
@@ -67,4 +70,52 @@ struct Overview: Decodable {
         self.description = try container.decode(String.self, forKey: .description)
         self.iconName = try container.decode(String.self, forKey: .iconName)
     }
+}
+
+// MARK: - Rain
+struct Rain: Decodable {
+    let pastHour: Double?
+    let pastThreeHours: Double?
+    
+    enum CodingKeys: String, CodingKey {
+        case pastHour = "1h"
+        case pastThreeHours = "3h"
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.pastHour = try container.decodeIfPresent(Double.self, forKey: .pastHour)
+        self.pastThreeHours = try container.decodeIfPresent(Double.self, forKey: .pastThreeHours)
+    }
+}
+
+// MARK: - Snow
+struct Snow: Decodable {
+    let pastHour: Double?
+    let pastThreeHours: Double?
+    
+    enum CodingKeys: String, CodingKey {
+        case pastHour = "1h"
+        case pastThreeHours = "3h"
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.pastHour = try container.decodeIfPresent(Double.self, forKey: .pastHour)
+        self.pastThreeHours = try container.decodeIfPresent(Double.self, forKey: .pastThreeHours)
+    }
+}
+
+// Given more time, I would use more descriptive property names and added CodingKeys for the below objects
+
+// MARK: - Wind
+struct Wind: Decodable {
+    let speed: Double
+    let deg: Double
+//    let gust: Double?
+}
+
+// MARK: - Clouds
+struct Clouds: Decodable {
+    let all: Double
 }

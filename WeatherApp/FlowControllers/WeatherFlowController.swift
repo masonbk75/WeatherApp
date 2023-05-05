@@ -15,7 +15,12 @@ class WeatherFlowController: FlowController, NavigatingFlowController {
 
     private var services: ServicesContainer
     private var locationManager: CLLocationManager?
-    private var weatherData: WeatherData?
+    
+    private lazy var detailsViewController: DetailsViewController = {
+        let detailsViewController = DetailsViewController()
+        detailsViewController.delegate = self
+        return detailsViewController
+    }()
     
     // MARK: - Initializers
     init(services: ServicesContainer) {
@@ -25,9 +30,8 @@ class WeatherFlowController: FlowController, NavigatingFlowController {
 
         super.init(nibName: nil, bundle: nil)
         
-        add(childController: navigator)
         locationManager?.delegate = self
-        locationManager?.requestLocation()
+        add(childController: navigator)
 
         start()
     }
@@ -38,13 +42,13 @@ class WeatherFlowController: FlowController, NavigatingFlowController {
     
     // MARK: - Start
     func start() {
+        detailsViewController.configure(with: .init(displayMode: .loading))
+        navigator.viewControllers = [detailsViewController]
         switch locationManager?.authorizationStatus {
-        case .authorizedAlways, .authorizedWhenInUse, .restricted, .denied:
-            configureForReturningUser()
-        case .none, .notDetermined:
-            configureWelcomeViewController()
-        @unknown default:
-            configureWelcomeViewController()
+        case .authorizedAlways, .authorizedWhenInUse, .restricted:
+            locationManager?.requestLocation()
+        default:
+            checkSearchHistory()
         }
     }
 }
@@ -52,34 +56,47 @@ class WeatherFlowController: FlowController, NavigatingFlowController {
 // MARK: - Helpers
 private extension WeatherFlowController {
     
-    func configureWelcomeViewController() {
-        let welcomeViewController = WelcomeViewController()
-        welcomeViewController.delegate = self
-        navigator.viewControllers = [welcomeViewController]
+    func checkSearchHistory() {
+        let hasSearchHistory = false
+        if hasSearchHistory {
+            // do something
+        } else {
+            detailsViewController.configure(with: .init(displayMode: .firstTime))
+        }
     }
     
-    func configureForReturningUser() {
-        
-    }
-    
-    func fetchWeatherData(for location: CLLocation) {
-        let coordinates = location.coordinate
-        services.networkingService.fetchWeatherData(for: coordinates) { result in
+    func configureDetails(with coordinates: CLLocationCoordinate2D?) {
+        guard let coordinates = coordinates else { return } // go to search flow
+        services.networkingService.fetchWeatherData(for: coordinates) { [weak self] result in
+            guard let self = self else { return } // go to search
             switch result {
             case .success(let weatherData):
-                self.weatherData = weatherData
+                detailsViewController.configure(with: .init(displayMode: .details(weatherData)))
             case .failure(let error):
                 debugPrint(error)
+                // go to search
             }
         }
     }
 }
 
-// MARK: - WelcomeViewControllerDelegate
-extension WeatherFlowController: WelcomeViewControllerDelegate {
+// MARK: - DetailsViewControllerDelegate
+extension WeatherFlowController: DetailsViewControllerDelegate {
     
-    func welcomeViewControllerDidRequestStart(_: WelcomeViewController) {
-        locationManager?.requestWhenInUseAuthorization()
+    func detailsViewControllerDidLaunchFirstTime(_: DetailsViewController) {
+        let welcomeFlowController = WelcomeFlowController(services: services, locationManager: locationManager)
+        welcomeFlowController.delegate = self
+        welcomeFlowController.isModalInPresentation = true
+        present(welcomeFlowController, animated: true)
+    }
+}
+
+// MARK: WelcomeFlowControllerDelegate
+extension WeatherFlowController: WelcomeFlowControllerDelegate {
+    
+    func welcomeFlowController(_ flowController: WelcomeFlowController, didFetch coordinates: CLLocationCoordinate2D) {
+        configureDetails(with: coordinates)
+        flowController.dismiss(animated: true)
     }
 }
 
@@ -87,21 +104,15 @@ extension WeatherFlowController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.first {
-            fetchWeatherData(for: location)
+            // save these coordinates 
+            configureDetails(with: location.coordinate)
         } else {
             // go to search
         }
     }
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        switch manager.authorizationStatus {
-        case .notDetermined, .restricted, .denied:
-            debugPrint("not determined")
-        case .authorizedAlways, .authorizedWhenInUse:
-            locationManager?.requestLocation()
-        @unknown default:
-            debugPrint("unknown")
-        }
+        locationManager?.requestLocation()
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
