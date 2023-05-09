@@ -11,6 +11,8 @@ import CoreLocation
 enum NetworkError: Error {
     case timeOut
     case notFound
+    case geoURL
+    case geoNotFound
 }
 
 // MARK: - NetworkingService
@@ -47,6 +49,27 @@ class NetworkingService {
                 DispatchQueue.main.async { completion(.success(data)) }
             } catch {
                 DispatchQueue.main.async { completion(.failure(.notFound)) }
+            }
+        }.resume()
+    }
+    
+    func fetchCoordinates(for input: String, completion: @escaping (Result<[RecentSearch], NetworkError>) -> Void) {
+        let query = "q=\(input)"
+        let limit = "&limit=5"
+        guard let url = URL(string: (geocodingBaseUrl + query + limit + key)) else { return completion(.failure(.geoURL)) }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        
+        URLSession.shared.dataTask(with: request) { (data, _, error) in
+            guard let data = data else { return completion(.failure(.timeOut)) }
+            
+            do {
+                let decoder = JSONDecoder()
+                let data = try decoder.decode([RecentSearch].self, from: data)
+                DispatchQueue.main.async { completion(.success(data)) }
+            } catch {
+                DispatchQueue.main.async { completion(.failure(.geoNotFound)) }
             }
         }.resume()
     }

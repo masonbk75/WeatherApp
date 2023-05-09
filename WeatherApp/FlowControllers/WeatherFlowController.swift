@@ -66,17 +66,26 @@ private extension WeatherFlowController {
     }
     
     func configureDetails(with coordinates: CLLocationCoordinate2D?) {
-        guard let coordinates = coordinates else { return } // go to search flow
+        guard let coordinates = coordinates else { return }
         services.networkingService.fetchWeatherData(for: coordinates) { [weak self] result in
-            guard let self = self else { return } // go to search
+            guard let self = self else { return }
             switch result {
             case .success(let weatherData):
+                let recentSearch: RecentSearch = .init(weatherData: weatherData)
+                services.searchHistoryService.save(recentSearch)
                 detailsViewController.configure(with: .init(displayMode: .details(weatherData)))
             case .failure(let error):
                 debugPrint(error)
-                // go to search
+                detailsViewController.configure(with: .init(displayMode: .error(error.localizedDescription)))
             }
         }
+    }
+    
+    func startSearchFlow() {
+        let searchFlowController = SearchFlowController(services: services)
+        searchFlowController.delegate = self
+        searchFlowController.isModalInPresentation = true
+        present(searchFlowController, animated: true)
     }
 }
 
@@ -84,10 +93,23 @@ private extension WeatherFlowController {
 extension WeatherFlowController: DetailsViewControllerDelegate {
     
     func detailsViewControllerDidLaunchFirstTime(_: DetailsViewController) {
-        let welcomeFlowController = WelcomeFlowController(services: services, locationManager: locationManager)
+        let welcomeFlowController = WelcomeFlowController(services: services)
         welcomeFlowController.delegate = self
         welcomeFlowController.isModalInPresentation = true
         present(welcomeFlowController, animated: true)
+    }
+    
+    func detailsViewControllerDidRequestSearch(_: DetailsViewController) {
+        startSearchFlow()
+    }
+}
+
+// MARK: - SearchFlowControllerDelegate
+extension WeatherFlowController: SearchFlowControllerDelegate {
+    
+    func searchFlowController(_ flowController: SearchFlowController, didFetch coordinates: CLLocationCoordinate2D) {
+        configureDetails(with: coordinates)
+        flowController.dismiss(animated: true)
     }
 }
 
@@ -103,12 +125,8 @@ extension WeatherFlowController: WelcomeFlowControllerDelegate {
 extension WeatherFlowController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.first {
-            // save these coordinates 
-            configureDetails(with: location.coordinate)
-        } else {
-            // go to search
-        }
+        guard let location = locations.first else { return }
+        configureDetails(with: location.coordinate)
     }
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
@@ -116,6 +134,9 @@ extension WeatherFlowController: CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        // go to search
+        if case .authorizedWhenInUse = manager.authorizationStatus {
+            debugPrint(error.localizedDescription)
+            startSearchFlow()
+        }
     }
 }

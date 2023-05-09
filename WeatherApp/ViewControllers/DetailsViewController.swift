@@ -9,6 +9,7 @@ import UIKit
 
 protocol DetailsViewControllerDelegate: AnyObject {
     func detailsViewControllerDidLaunchFirstTime(_: DetailsViewController)
+    func detailsViewControllerDidRequestSearch(_: DetailsViewController)
 }
 
 class DetailsViewController: UIViewController {
@@ -82,5 +83,10 @@ private extension DetailsViewController {
     
     func configureForError(with message: String) {
         debugPrint(message)
+    }
+    
+    // MARK: - IBActions
+    @IBAction func searchButtonTapped(_ sender: UIButton) {
+        delegate?.detailsViewControllerDidRequestSearch(self)
     }
 }

@@ -125,17 +125,26 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wnX-Rt-wFK">
-                    <rect key="frame" x="32" y="752" width="75" height="35"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wnX-Rt-wFK">
+                    <rect key="frame" x="45" y="743" width="45" height="45"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="45" id="E0e-NG-b5s"/>
+                        <constraint firstAttribute="height" constant="45" id="LbF-5Z-dRx"/>
+                    </constraints>
                     <state key="normal" title="Button"/>
-                    <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" image="magnifyingglass" catalog="system"/>
+                    <connections>
+                        <action selector="searchButtonTapped:" destination="-1" eventType="touchUpInside" id="rxC-Mv-Kq1"/>
+                    </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="czN-LH-SCV">
-                    <rect key="frame" x="286" y="752" width="75" height="35"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="czN-LH-SCV">
+                    <rect key="frame" x="303" y="743" width="45" height="45"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="45" id="1rf-RI-IdJ"/>
+                        <constraint firstAttribute="width" constant="45" id="N1h-pF-H3j"/>
+                    </constraints>
                     <state key="normal" title="Button"/>
-                    <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" image="list.bullet" catalog="system"/>
                 </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
@@ -143,21 +152,27 @@
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="JSO-l5-ewm" secondAttribute="trailing" constant="32" id="5k5-mF-qNp"/>
                 <constraint firstItem="dsf-x8-vLF" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="5vk-Nf-Nmv"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="czN-LH-SCV" secondAttribute="bottom" constant="30" id="71o-Xs-OD6"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="eyf-Qf-yYq" secondAttribute="trailing" constant="32" id="Dei-Py-riY"/>
                 <constraint firstItem="JSO-l5-ewm" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="32" id="Hzk-Ja-2d0"/>
                 <constraint firstItem="dsf-x8-vLF" firstAttribute="top" secondItem="JSO-l5-ewm" secondAttribute="bottom" constant="8" id="IlX-bV-mAb"/>
                 <constraint firstItem="ve2-4N-3Jw" firstAttribute="top" secondItem="eyf-Qf-yYq" secondAttribute="bottom" constant="12" id="JVl-8b-gaA"/>
                 <constraint firstItem="ve2-4N-3Jw" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Nwl-5d-Djd"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="wnX-Rt-wFK" secondAttribute="bottom" constant="30" id="Puc-ib-rne"/>
                 <constraint firstItem="eyf-Qf-yYq" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="32" id="Si0-zP-0Wa"/>
                 <constraint firstItem="eyf-Qf-yYq" firstAttribute="top" secondItem="dsf-x8-vLF" secondAttribute="bottom" constant="8" symbolic="YES" id="TrR-RT-8Cq"/>
                 <constraint firstItem="rRe-AG-QKa" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="gGC-wQ-ups"/>
+                <constraint firstItem="wnX-Rt-wFK" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="45" id="hU8-ud-HbN"/>
                 <constraint firstItem="rRe-AG-QKa" firstAttribute="top" secondItem="ve2-4N-3Jw" secondAttribute="bottom" constant="8" symbolic="YES" id="uZi-jW-9JO"/>
                 <constraint firstItem="JSO-l5-ewm" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="usD-IH-YEU"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="czN-LH-SCV" secondAttribute="trailing" constant="45" id="vSs-53-REI"/>
             </constraints>
             <point key="canvasLocation" x="55.725190839694655" y="-32.394366197183103"/>
         </view>
     </objects>
     <resources>
+        <image name="list.bullet" catalog="system" width="128" height="87"/>
+        <image name="magnifyingglass" catalog="system" width="128" height="117"/>
         <image name="sun.min.fill" catalog="system" width="128" height="123"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
