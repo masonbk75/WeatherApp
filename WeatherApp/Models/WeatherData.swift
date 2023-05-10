@@ -121,7 +121,6 @@ struct Snow: Decodable {
 struct Wind: Decodable {
     let speed: Double
     let deg: Double
-//    let gust: Double?
 }
 
 // MARK: - Clouds

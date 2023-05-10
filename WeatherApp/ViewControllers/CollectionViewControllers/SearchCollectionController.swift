@@ -52,6 +52,7 @@ class SearchCollectionController: NSObject {
         
         collectionView.delegate = self
         collectionView.collectionViewLayout = collectionViewLayout()
+        collectionView.contentInset = .init(top: -25, left: 0, bottom: 0, right: 0)
     }
 }
 
@@ -124,7 +125,11 @@ private extension SearchCollectionController {
             return cell
         case .searchResults(let recentSearch):
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SearchResultCollectionViewCell", for: indexPath) as? SearchResultCollectionViewCell else { return UICollectionViewCell() }
-            cell.configure(with: recentSearch.name)
+            if let state = recentSearch.state {
+                cell.configure(with: recentSearch.name + ", " + state)
+            } else {
+                cell.configure(with: recentSearch.name)
+            }
             return cell
         }
     }
@@ -149,8 +154,10 @@ private extension SearchCollectionController {
         let sectionProvider = { (sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
             let hasHeader = self.dataSource.snapshot().sectionIdentifiers[sectionIndex] != .currentLocation
             
-            var configuration = UICollectionLayoutListConfiguration(appearance: .plain)
+            var configuration = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
+            configuration.headerTopPadding = 0.0
             configuration.headerMode = hasHeader ? .supplementary : .none
+            configuration.showsSeparators = hasHeader
 
             return NSCollectionLayoutSection.list(using: configuration, layoutEnvironment: layoutEnvironment)
         }

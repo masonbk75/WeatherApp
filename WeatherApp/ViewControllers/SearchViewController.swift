@@ -62,7 +62,10 @@ extension SearchViewController: UISearchBarDelegate {
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        guard let text = searchBar.searchTextField.text else { return } // in line error
+        searchBar.resignFirstResponder()
+        // Given more time I would clean up user input to allow for more search freedom
+        // I would also include inline error or an error cell in the results collectionView
+        guard let text = searchBar.searchTextField.text?.trimmingCharacters(in: .whitespaces) else { return }
         delegate?.searchViewControllerDidSearch(self, input: text)
     }
 }

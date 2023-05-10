@@ -28,6 +28,7 @@
 		D645AE922A045FEA00112B10 /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645AE912A045FEA00112B10 /* WeatherData.swift */; };
 		D645AE942A046C3700112B10 /* NetworkingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645AE932A046C3700112B10 /* NetworkingService.swift */; };
 		D645AE9A2A056CED00112B10 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = D645AE992A056CED00112B10 /* Keys.plist */; };
+		D677C5BB2A0AD85C00F5C033 /* PercentageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D677C5BA2A0AD85C00F5C033 /* PercentageView.swift */; };
 		D6C9E9CB2A057F62009DB59C /* Configurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C9E9CA2A057F62009DB59C /* Configurable.swift */; };
 		D6C9E9CD2A059848009DB59C /* WelcomeFlowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C9E9CC2A059848009DB59C /* WelcomeFlowController.swift */; };
 		D6C9E9CF2A094952009DB59C /* SearchFlowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C9E9CE2A094952009DB59C /* SearchFlowController.swift */; };
@@ -84,6 +85,7 @@
 		D645AE912A045FEA00112B10 /* WeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
 		D645AE932A046C3700112B10 /* NetworkingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingService.swift; sourceTree = "<group>"; };
 		D645AE992A056CED00112B10 /* Keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
+		D677C5BA2A0AD85C00F5C033 /* PercentageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PercentageView.swift; sourceTree = "<group>"; };
 		D6C9E9CA2A057F62009DB59C /* Configurable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configurable.swift; sourceTree = "<group>"; };
 		D6C9E9CC2A059848009DB59C /* WelcomeFlowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeFlowController.swift; sourceTree = "<group>"; };
 		D6C9E9CE2A094952009DB59C /* SearchFlowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFlowController.swift; sourceTree = "<group>"; };
@@ -208,6 +210,7 @@
 				D645AE8C2A041C2900112B10 /* SearchViewController.swift */,
 				D645AE8D2A041C2900112B10 /* SearchViewController.xib */,
 				D6C9E9D22A098E73009DB59C /* CollectionViewControllers */,
+				D677C5B92A0AD82F00F5C033 /* Views */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -230,16 +233,24 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		D6C9E9D22A098E73009DB59C /* CollectionViewControllers */ = {
+		D677C5B92A0AD82F00F5C033 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				D6C9E9D32A098E9F009DB59C /* SearchCollectionController.swift */,
+				D677C5BA2A0AD85C00F5C033 /* PercentageView.swift */,
 				D6C9E9D52A09A095009DB59C /* SearchResultCollectionViewCell.swift */,
 				D6C9E9D62A09A095009DB59C /* SearchResultCollectionViewCell.xib */,
 				D6C9E9D92A09A2ED009DB59C /* CurrentLocationCollectionViewCell.swift */,
 				D6C9E9DA2A09A2ED009DB59C /* CurrentLocationCollectionViewCell.xib */,
 				D6C9E9DD2A09B71E009DB59C /* SearchResultsHeader.swift */,
 				D6C9E9DE2A09B71E009DB59C /* SearchResultsHeader.xib */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		D6C9E9D22A098E73009DB59C /* CollectionViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				D6C9E9D32A098E9F009DB59C /* SearchCollectionController.swift */,
 			);
 			path = CollectionViewControllers;
 			sourceTree = "<group>";
@@ -381,6 +392,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D677C5BB2A0AD85C00F5C033 /* PercentageView.swift in Sources */,
 				D645AE8E2A041C2900112B10 /* SearchViewController.swift in Sources */,
 				D6C9E9DF2A09B71E009DB59C /* SearchResultsHeader.swift in Sources */,
 				D6C9E9D42A098E9F009DB59C /* SearchCollectionController.swift in Sources */,

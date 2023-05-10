@@ -12,12 +12,9 @@ class SearchResultCollectionViewCell: UICollectionViewCell {
     // MARK: - IBOutlets
     @IBOutlet private var locationLabel: UILabel!
     
-    // MARK: - Properties
-    private var locationText: String = "hey"
-    
+    // MARK: - Overrides
     override func awakeFromNib() {
         super.awakeFromNib()
-        locationLabel.text = locationText
     }
 }
 
@@ -25,7 +22,6 @@ class SearchResultCollectionViewCell: UICollectionViewCell {
 extension SearchResultCollectionViewCell: Configurable {
     
     func configure(with element: String) {
-        locationText = element
-        locationLabel.text = locationText
+        locationLabel.text = element
     }
 }

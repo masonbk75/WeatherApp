@@ -12,6 +12,7 @@ struct RecentSearch: Codable, Equatable, Hashable {
     let name: String
     let lat: CLLocationDegrees
     let lon: CLLocationDegrees
+    let state: String?
     
     var coordinates: CLLocationCoordinate2D {
         let coords: CLLocationCoordinate2D = .init(latitude: lat, longitude: lon)
@@ -19,10 +20,11 @@ struct RecentSearch: Codable, Equatable, Hashable {
     }
     
     // MARK: - Initializer
-    init(name: String, lat: CLLocationDegrees, lon: CLLocationDegrees) {
+    init(name: String, lat: CLLocationDegrees, lon: CLLocationDegrees, state: String? = nil) {
         self.name = name
         self.lat = lat
         self.lon = lon
+        self.state = state
     }
     
     // MARK: - Convenience

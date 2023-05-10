@@ -57,15 +57,15 @@ class WeatherFlowController: FlowController, NavigatingFlowController {
 private extension WeatherFlowController {
     
     func checkSearchHistory() {
-        let hasSearchHistory = false
-        if hasSearchHistory {
-            // do something
+        if let recentSearch = services.searchHistoryService.recentSearches.first {
+            let coord: CLLocationCoordinate2D = .init(latitude: recentSearch.lat, longitude: recentSearch.lon)
+            fetchWeatherData(with: coord)
         } else {
             detailsViewController.configure(with: .init(displayMode: .firstTime))
         }
     }
     
-    func configureDetails(with coordinates: CLLocationCoordinate2D?) {
+    func fetchWeatherData(with coordinates: CLLocationCoordinate2D?) {
         guard let coordinates = coordinates else { return }
         services.networkingService.fetchWeatherData(for: coordinates) { [weak self] result in
             guard let self = self else { return }
@@ -73,7 +73,20 @@ private extension WeatherFlowController {
             case .success(let weatherData):
                 let recentSearch: RecentSearch = .init(weatherData: weatherData)
                 services.searchHistoryService.save(recentSearch)
-                detailsViewController.configure(with: .init(displayMode: .details(weatherData)))
+                configureDetails(with: weatherData)
+            case .failure(let error):
+                debugPrint(error)
+                detailsViewController.configure(with: .init(displayMode: .error(error.localizedDescription)))
+            }
+        }
+    }
+    
+    func configureDetails(with weatherData: WeatherData) {
+        services.networkingService.loadImage(named: weatherData.overview.first?.iconName) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let data):
+                detailsViewController.configure(with: .init(displayMode: .details(weatherData, UIImage(data: data))))
             case .failure(let error):
                 debugPrint(error)
                 detailsViewController.configure(with: .init(displayMode: .error(error.localizedDescription)))
@@ -108,7 +121,7 @@ extension WeatherFlowController: DetailsViewControllerDelegate {
 extension WeatherFlowController: SearchFlowControllerDelegate {
     
     func searchFlowController(_ flowController: SearchFlowController, didFetch coordinates: CLLocationCoordinate2D) {
-        configureDetails(with: coordinates)
+        fetchWeatherData(with: coordinates)
         flowController.dismiss(animated: true)
     }
 }
@@ -117,7 +130,7 @@ extension WeatherFlowController: SearchFlowControllerDelegate {
 extension WeatherFlowController: WelcomeFlowControllerDelegate {
     
     func welcomeFlowController(_ flowController: WelcomeFlowController, didFetch coordinates: CLLocationCoordinate2D) {
-        configureDetails(with: coordinates)
+        fetchWeatherData(with: coordinates)
         flowController.dismiss(animated: true)
     }
 }
@@ -126,7 +139,7 @@ extension WeatherFlowController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.first else { return }
-        configureDetails(with: location.coordinate)
+        fetchWeatherData(with: location.coordinate)
     }
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {

@@ -21,23 +21,24 @@
                         <rect key="frame" x="0.0" y="0.0" width="382" height="50"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="location name g" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iYo-yR-rYe">
-                                <rect key="frame" x="11" y="0.0" width="300" height="50"/>
-                                <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="17"/>
-                                <color key="textColor" systemColor="systemRedColor"/>
+                                <rect key="frame" x="20" y="0.0" width="296" height="50"/>
+                                <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="18"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron.right" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="19y-zB-fvb">
-                                <rect key="frame" x="336" y="11.999999999999998" width="30" height="26.333333333333329"/>
+                                <rect key="frame" x="341" y="14.666666666666668" width="25" height="21.333333333333325"/>
                                 <color key="tintColor" red="0.18039215689999999" green="0.35107067870000003" blue="0.67682949349999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="Q1X-RB-MVj"/>
-                                    <constraint firstAttribute="width" constant="30" id="oRN-Vv-j9d"/>
+                                    <constraint firstAttribute="height" constant="25" id="Q1X-RB-MVj"/>
+                                    <constraint firstAttribute="width" constant="25" id="oRN-Vv-j9d"/>
                                 </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="iYo-yR-rYe" firstAttribute="leading" secondItem="5nn-xk-hsi" secondAttribute="leading" constant="11" id="A8G-dJ-9zm"/>
+                            <constraint firstAttribute="height" constant="50" id="5pV-Kg-Njd"/>
+                            <constraint firstItem="iYo-yR-rYe" firstAttribute="leading" secondItem="5nn-xk-hsi" secondAttribute="leading" constant="20" id="A8G-dJ-9zm"/>
                             <constraint firstItem="iYo-yR-rYe" firstAttribute="top" secondItem="5nn-xk-hsi" secondAttribute="top" id="Bhv-O3-Ouc"/>
                             <constraint firstAttribute="trailing" secondItem="19y-zB-fvb" secondAttribute="trailing" constant="16" id="QOg-8o-pn2"/>
                             <constraint firstItem="19y-zB-fvb" firstAttribute="leading" secondItem="iYo-yR-rYe" secondAttribute="trailing" constant="25" id="ajx-Ti-b4X"/>
@@ -65,9 +66,6 @@
         <image name="chevron.right" catalog="system" width="97" height="128"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

@@ -18,11 +18,12 @@ class SearchFlowController: FlowController {
     private var locationManager: CLLocationManager?
     private var services: ServicesContainer
     private var isDismissable: Bool
-    private var recentSearches: [RecentSearch] = []
     private var newResults: [RecentSearch] = []
     
     weak var delegate: SearchFlowControllerDelegate?
     
+    // MARK: - Lazy
+    private lazy var recentSearches: [RecentSearch] = { services.searchHistoryService.updatedSearches }()
     private lazy var searchViewController: SearchViewController = {
         let searchViewController = SearchViewController()
         searchViewController.delegate = self
@@ -33,13 +34,9 @@ class SearchFlowController: FlowController {
     init(services: ServicesContainer, isDismissable: Bool = true) {
         self.services = services
         self.isDismissable = isDismissable
-        locationManager = CLLocationManager()
         
         super.init(nibName: nil, bundle: nil)
         
-        locationManager?.delegate = self
-        recentSearches = services.searchHistoryService.recentSearches
-
         start()
     }
     
@@ -56,6 +53,17 @@ class SearchFlowController: FlowController {
 // MARK: - Helpers
 private extension SearchFlowController {
     
+    // Would localize all Strings given more time
+    func presentSettingsAlert() {
+        let alert = UIAlertController(title: "Location Access Needed", message: "Please update your location preferences in settings", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: { action in
+            if let url = URL(string: UIApplication.openSettingsURLString) {
+                UIApplication.shared.open(url)
+            }
+        }))
+        alert.addAction(.init(title: "Cancel", style: .cancel))
+        present(alert, animated: true)
+    }
 }
 
 // MARK: - SearchViewControllerDelegate
@@ -66,7 +74,13 @@ extension SearchFlowController: SearchViewControllerDelegate {
     }
     
     func searchViewControllerDidRequestLocation(_: SearchViewController) {
-        locationManager?.requestLocation()
+        if case .denied = locationManager?.authorizationStatus {
+            presentSettingsAlert()
+        } else {
+            locationManager = CLLocationManager()
+            locationManager?.delegate = self
+            locationManager?.requestLocation()
+        }
     }
     
     func searchViewController(_: SearchViewController, didSelect recentSearch: RecentSearch) {
@@ -93,7 +107,7 @@ extension SearchFlowController: SearchViewControllerDelegate {
 extension SearchFlowController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let location = locations.first else { return } // handle this failure
+        guard let location = locations.first else { return }
         delegate?.searchFlowController(self, didFetch: location.coordinate)
     }
     
