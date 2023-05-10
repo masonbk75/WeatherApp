@@ -1,5 +1,5 @@
 //
-//  WeatherFlowController.swift
+//  DetailsFlowController.swift
 //  WeatherApp
 //
 //  Created by Mason Kelly on 5/4/23.
@@ -8,7 +8,7 @@
 import UIKit
 import CoreLocation
 
-class WeatherFlowController: FlowController, NavigatingFlowController {
+class DetailsFlowController: FlowController, NavigatingFlowController {
     
     // MARK: - Properties
     var navigator: UINavigationController
@@ -54,7 +54,7 @@ class WeatherFlowController: FlowController, NavigatingFlowController {
 }
 
 // MARK: - Helpers
-private extension WeatherFlowController {
+private extension DetailsFlowController {
     
     func checkSearchHistory() {
         if let recentSearch = services.searchHistoryService.recentSearches.first {
@@ -82,7 +82,7 @@ private extension WeatherFlowController {
     }
     
     func configureDetails(with weatherData: WeatherData) {
-        services.networkingService.loadImage(named: weatherData.overview.first?.iconName) { [weak self] result in
+        services.iconService.loadImage(named: weatherData.overview.first?.iconName) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let data):
@@ -103,7 +103,7 @@ private extension WeatherFlowController {
 }
 
 // MARK: - DetailsViewControllerDelegate
-extension WeatherFlowController: DetailsViewControllerDelegate {
+extension DetailsFlowController: DetailsViewControllerDelegate {
     
     func detailsViewControllerDidLaunchFirstTime(_: DetailsViewController) {
         let welcomeFlowController = WelcomeFlowController(services: services)
@@ -118,16 +118,17 @@ extension WeatherFlowController: DetailsViewControllerDelegate {
 }
 
 // MARK: - SearchFlowControllerDelegate
-extension WeatherFlowController: SearchFlowControllerDelegate {
+extension DetailsFlowController: SearchFlowControllerDelegate {
     
     func searchFlowController(_ flowController: SearchFlowController, didFetch coordinates: CLLocationCoordinate2D) {
+        detailsViewController.configure(with: .init(displayMode: .loading))
         fetchWeatherData(with: coordinates)
         flowController.dismiss(animated: true)
     }
 }
 
 // MARK: WelcomeFlowControllerDelegate
-extension WeatherFlowController: WelcomeFlowControllerDelegate {
+extension DetailsFlowController: WelcomeFlowControllerDelegate {
     
     func welcomeFlowController(_ flowController: WelcomeFlowController, didFetch coordinates: CLLocationCoordinate2D) {
         fetchWeatherData(with: coordinates)
@@ -135,7 +136,7 @@ extension WeatherFlowController: WelcomeFlowControllerDelegate {
     }
 }
 
-extension WeatherFlowController: CLLocationManagerDelegate {
+extension DetailsFlowController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.first else { return }

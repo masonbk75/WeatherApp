@@ -77,7 +77,7 @@ private extension DetailsViewController {
     
     func configureForDetails(with weatherData: WeatherData, image: UIImage?) {
         imageView.image = image
-        imageView.layer.cornerRadius = imageView.frame.width / 2
+        imageView.layer.cornerRadius = imageView.frame.height / 2
         locationLabel.text = weatherData.cityName
         descriptionLabel.text = weatherData.overview.first?.description.capitalized
         currentTempLabel.text = "\(weatherData.mainTemp.temp)°F"

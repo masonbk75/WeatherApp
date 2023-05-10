@@ -44,13 +44,21 @@ extension SearchViewController: Configurable {
         let canCancel: Bool
         let recentSearches: [RecentSearch]
         let newResults: [RecentSearch]
+        let emptySearch: Bool
+        
+        init(canCancel: Bool, recentSearches: [RecentSearch], newResults: [RecentSearch], emptySearch: Bool = false) {
+            self.canCancel = canCancel
+            self.recentSearches = recentSearches
+            self.newResults = newResults
+            self.emptySearch = emptySearch
+        }
     }
     
     func configure(with element: Configuration) {
         configuration = element
         guard isViewLoaded else { return }
         searchBar.showsCancelButton = element.canCancel
-        collectionController.configure(with: .init(recentSearches: element.recentSearches, newResults: element.newResults))
+        collectionController.configure(with: .init(recentSearches: element.recentSearches, newResults: element.newResults, emptySearch: element.emptySearch))
     }
 }
 
@@ -63,10 +71,9 @@ extension SearchViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
-        // Given more time I would clean up user input to allow for more search freedom
-        // I would also include inline error or an error cell in the results collectionView
-        guard let text = searchBar.searchTextField.text?.trimmingCharacters(in: .whitespaces) else { return }
-        delegate?.searchViewControllerDidSearch(self, input: text)
+        guard let text = searchBar.searchTextField.text else { return }
+        let cleanText = text.trimmingCharacters(in: .whitespaces).replacingOccurrences(of: " ", with: "+")
+        delegate?.searchViewControllerDidSearch(self, input: cleanText)
     }
 }
 

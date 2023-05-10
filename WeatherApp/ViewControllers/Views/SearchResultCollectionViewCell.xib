@@ -37,7 +37,7 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="50" id="5pV-Kg-Njd"/>
+                            <constraint firstAttribute="height" priority="750" constant="50" id="5pV-Kg-Njd"/>
                             <constraint firstItem="iYo-yR-rYe" firstAttribute="leading" secondItem="5nn-xk-hsi" secondAttribute="leading" constant="20" id="A8G-dJ-9zm"/>
                             <constraint firstItem="iYo-yR-rYe" firstAttribute="top" secondItem="5nn-xk-hsi" secondAttribute="top" id="Bhv-O3-Ouc"/>
                             <constraint firstAttribute="trailing" secondItem="19y-zB-fvb" secondAttribute="trailing" constant="16" id="QOg-8o-pn2"/>

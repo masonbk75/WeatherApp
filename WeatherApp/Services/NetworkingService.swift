@@ -23,10 +23,9 @@ class NetworkingService {
     let environment: Environment
     
     private let key: String
+    // Given more time I would have set up a safer way to construct all URLs and their parameters
     private let weatherBaseUrl: String = "https://api.openweathermap.org/data/2.5/weather?"
     private let geocodingBaseUrl: String = "https://api.openweathermap.org/geo/1.0/direct?"
-    private let imageBaseUrl: String = "https://openweathermap.org/img/wn/"
-    private let imageSuffix: String = "@2x.png"
     
     // MARK: - Initializer
     init(environment: Environment) {
@@ -76,37 +75,6 @@ class NetworkingService {
                 DispatchQueue.main.async { completion(.failure(.geoNotFound)) }
             }
         }.resume()
-    }
-    
-    func loadImage(named: String?, completion: @escaping (Result<Data, NetworkError>) -> Void) {
-        guard let name = named, let url = URL(string: imageBaseUrl + name + imageSuffix) else { return completion(.failure(.imageError)) }
-        let fileCachePath = FileManager.default.temporaryDirectory.appending(path: url.lastPathComponent)
-        
-        download(url: url, toFile: fileCachePath) { error in
-            do {
-                let data = try Data(contentsOf: fileCachePath)
-                completion(.success(data))
-            } catch {
-                completion(.failure(.imageError))
-            }
-        }
-    }
-    
-    private func download(url: URL, toFile file: URL, completion: @escaping (Error?) ->Void) {
-        let task = URLSession.shared.downloadTask(with: url) { (url, response, error) in
-            guard let url = url else { return completion(error) }
-            
-            do {
-                if FileManager.default.fileExists(atPath: file.path) {
-                    try FileManager.default.removeItem(at: file)
-                }
-                try FileManager.default.copyItem(at: url, to: file)
-                DispatchQueue.main.async { completion(nil) }
-            } catch let error {
-                DispatchQueue.main.async { completion(error) }
-            }
-        }
-        task.resume()
     }
 }
 

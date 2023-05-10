@@ -9,11 +9,12 @@ import UIKit
 
 class FlowController: UIViewController {
     
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
     }
 
-    // MARK: - Helpers
+    // MARK: - Interface
     public func add(childController: UIViewController) {
         addChild(childController)
         view.addSubview(childController.view)

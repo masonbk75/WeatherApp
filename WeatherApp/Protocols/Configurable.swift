@@ -10,6 +10,5 @@ import Foundation
 public protocol Configurable {
     associatedtype ConfiguringType
     
-    /// Configures `Self` with `element`.
     func configure(with element: ConfiguringType)
 }
