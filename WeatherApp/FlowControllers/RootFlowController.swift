@@ -26,7 +26,7 @@ class RootFlowController: FlowController {
     
     // MARK: - Start
     private func configureInitialFlow() {
-        add(childController: WeatherFlowController(services: services))
+        add(childController: DetailsFlowController(services: services))
     }
 }
 

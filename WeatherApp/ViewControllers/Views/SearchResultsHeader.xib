@@ -24,7 +24,7 @@
                         </label>
                     </subviews>
                     <constraints>
-                        <constraint firstAttribute="height" constant="35" id="RZX-pW-gmG"/>
+                        <constraint firstAttribute="height" priority="750" constant="35" id="RZX-pW-gmG"/>
                         <constraint firstAttribute="trailing" secondItem="b3F-7U-fNO" secondAttribute="trailing" constant="16" id="pmt-sj-VAX"/>
                         <constraint firstItem="b3F-7U-fNO" firstAttribute="centerY" secondItem="b8Q-f7-LgH" secondAttribute="centerY" id="tqs-hz-xbn"/>
                         <constraint firstItem="b3F-7U-fNO" firstAttribute="leading" secondItem="b8Q-f7-LgH" secondAttribute="leading" constant="10" id="ze5-eF-7iG"/>

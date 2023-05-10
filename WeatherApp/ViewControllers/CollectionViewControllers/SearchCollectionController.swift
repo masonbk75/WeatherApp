@@ -17,6 +17,7 @@ class SearchCollectionController: NSObject {
     // MARK: - Subtypes
     enum Section: Hashable {
         case currentLocation
+        case noResults
         case recent
         case newSearch
     }
@@ -30,6 +31,7 @@ class SearchCollectionController: NSObject {
     private let collectionView: UICollectionView
     private var recentSearches: [RecentSearch] = []
     private var newResults: [RecentSearch] = []
+    private var emptySearch: Bool = false
     private weak var delegate: SearchCollectionControllerDelegate?
     
     // MARK: - Lazy
@@ -62,11 +64,19 @@ extension SearchCollectionController: Configurable {
     struct Configuration {
         let recentSearches: [RecentSearch]
         let newResults: [RecentSearch]
+        let emptySearch: Bool
+        
+        init(recentSearches: [RecentSearch], newResults: [RecentSearch], emptySearch: Bool = false) {
+            self.recentSearches = recentSearches
+            self.newResults = newResults
+            self.emptySearch = emptySearch
+        }
     }
     
     func configure(with element: Configuration) {
         recentSearches = element.recentSearches
         newResults = element.newResults
+        emptySearch = element.emptySearch
         registerCells()
         configureDataSource()
         dataSource.supplementaryViewProvider = supplementaryViewProvider
@@ -85,6 +95,7 @@ private extension SearchCollectionController {
     func configureDataSource() {
         var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
         var sections: [Section] = [.currentLocation]
+        if emptySearch { sections.append(.noResults) }
         if !newResults.isEmpty { sections.append(.newSearch) }
         if !recentSearches.isEmpty { sections.append(.recent) }
         
@@ -139,13 +150,17 @@ private extension SearchCollectionController {
         switch section {
         case .currentLocation:
             return nil
+        case .noResults:
+            let header: SearchResultsHeader = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "SearchResultsHeader", for: indexPath) as! SearchResultsHeader
+            header.configure(with: .emptyResults)
+            return header
         case .recent:
             let header: SearchResultsHeader = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "SearchResultsHeader", for: indexPath) as! SearchResultsHeader
-            header.configure(with: "Recent Searches")
+            header.configure(with: .recentSearches)
             return header
         case .newSearch:
             let header: SearchResultsHeader = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "SearchResultsHeader", for: indexPath) as! SearchResultsHeader
-            header.configure(with: "Results")
+            header.configure(with: .newResults)
             return header
         }
     }

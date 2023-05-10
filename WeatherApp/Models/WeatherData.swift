@@ -115,8 +115,6 @@ struct Snow: Decodable {
     }
 }
 
-// Given more time, I would use more descriptive property names and added CodingKeys for the below objects
-
 // MARK: - Wind
 struct Wind: Decodable {
     let speed: Double

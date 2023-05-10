@@ -79,7 +79,7 @@ extension SearchFlowController: SearchViewControllerDelegate {
         } else {
             locationManager = CLLocationManager()
             locationManager?.delegate = self
-            locationManager?.requestLocation()
+            locationManager?.requestWhenInUseAuthorization()
         }
     }
     
@@ -93,9 +93,8 @@ extension SearchFlowController: SearchViewControllerDelegate {
             guard let self = self else { return }
             switch result {
             case .success(let response):
-                debugPrint(response)
                 self.newResults = response
-                searchViewController.configure(with: .init(canCancel: self.isDismissable, recentSearches: self.recentSearches, newResults: self.newResults))
+                searchViewController.configure(with: .init(canCancel: self.isDismissable, recentSearches: self.recentSearches, newResults: self.newResults, emptySearch: response.isEmpty))
             case .failure(let error):
                 debugPrint(error)
             }

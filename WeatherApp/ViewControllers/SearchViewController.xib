@@ -19,7 +19,7 @@
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <searchBar contentMode="redraw" placeholder="Search by city or zip" showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uwh-8p-tYG">
+                <searchBar contentMode="redraw" placeholder="Search by city name" showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uwh-8p-tYG">
                     <rect key="frame" x="0.0" y="47" width="393" height="56"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="search" textContentType="location"/>
                     <scopeButtonTitles>
