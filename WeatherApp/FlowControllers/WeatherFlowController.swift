@@ -57,26 +57,48 @@ class WeatherFlowController: FlowController, NavigatingFlowController {
 private extension WeatherFlowController {
     
     func checkSearchHistory() {
-        let hasSearchHistory = false
-        if hasSearchHistory {
-            // do something
+        if let recentSearch = services.searchHistoryService.recentSearches.first {
+            let coord: CLLocationCoordinate2D = .init(latitude: recentSearch.lat, longitude: recentSearch.lon)
+            fetchWeatherData(with: coord)
         } else {
             detailsViewController.configure(with: .init(displayMode: .firstTime))
         }
     }
     
-    func configureDetails(with coordinates: CLLocationCoordinate2D?) {
-        guard let coordinates = coordinates else { return } // go to search flow
+    func fetchWeatherData(with coordinates: CLLocationCoordinate2D?) {
+        guard let coordinates = coordinates else { return }
         services.networkingService.fetchWeatherData(for: coordinates) { [weak self] result in
-            guard let self = self else { return } // go to search
+            guard let self = self else { return }
             switch result {
             case .success(let weatherData):
-                detailsViewController.configure(with: .init(displayMode: .details(weatherData)))
+                let recentSearch: RecentSearch = .init(weatherData: weatherData)
+                services.searchHistoryService.save(recentSearch)
+                configureDetails(with: weatherData)
             case .failure(let error):
                 debugPrint(error)
-                // go to search
+                detailsViewController.configure(with: .init(displayMode: .error(error.localizedDescription)))
             }
         }
+    }
+    
+    func configureDetails(with weatherData: WeatherData) {
+        services.networkingService.loadImage(named: weatherData.overview.first?.iconName) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let data):
+                detailsViewController.configure(with: .init(displayMode: .details(weatherData, UIImage(data: data))))
+            case .failure(let error):
+                debugPrint(error)
+                detailsViewController.configure(with: .init(displayMode: .error(error.localizedDescription)))
+            }
+        }
+    }
+    
+    func startSearchFlow() {
+        let searchFlowController = SearchFlowController(services: services)
+        searchFlowController.delegate = self
+        searchFlowController.isModalInPresentation = true
+        present(searchFlowController, animated: true)
     }
 }
 
@@ -84,10 +106,23 @@ private extension WeatherFlowController {
 extension WeatherFlowController: DetailsViewControllerDelegate {
     
     func detailsViewControllerDidLaunchFirstTime(_: DetailsViewController) {
-        let welcomeFlowController = WelcomeFlowController(services: services, locationManager: locationManager)
+        let welcomeFlowController = WelcomeFlowController(services: services)
         welcomeFlowController.delegate = self
         welcomeFlowController.isModalInPresentation = true
         present(welcomeFlowController, animated: true)
+    }
+    
+    func detailsViewControllerDidRequestSearch(_: DetailsViewController) {
+        startSearchFlow()
+    }
+}
+
+// MARK: - SearchFlowControllerDelegate
+extension WeatherFlowController: SearchFlowControllerDelegate {
+    
+    func searchFlowController(_ flowController: SearchFlowController, didFetch coordinates: CLLocationCoordinate2D) {
+        fetchWeatherData(with: coordinates)
+        flowController.dismiss(animated: true)
     }
 }
 
@@ -95,7 +130,7 @@ extension WeatherFlowController: DetailsViewControllerDelegate {
 extension WeatherFlowController: WelcomeFlowControllerDelegate {
     
     func welcomeFlowController(_ flowController: WelcomeFlowController, didFetch coordinates: CLLocationCoordinate2D) {
-        configureDetails(with: coordinates)
+        fetchWeatherData(with: coordinates)
         flowController.dismiss(animated: true)
     }
 }
@@ -103,12 +138,8 @@ extension WeatherFlowController: WelcomeFlowControllerDelegate {
 extension WeatherFlowController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.first {
-            // save these coordinates 
-            configureDetails(with: location.coordinate)
-        } else {
-            // go to search
-        }
+        guard let location = locations.first else { return }
+        fetchWeatherData(with: location.coordinate)
     }
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
@@ -116,6 +147,9 @@ extension WeatherFlowController: CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        // go to search
+        if case .authorizedWhenInUse = manager.authorizationStatus {
+            debugPrint(error.localizedDescription)
+            startSearchFlow()
+        }
     }
 }

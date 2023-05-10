@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SearchResultCollectionViewCell" id="gTV-IL-0wX" customClass="SearchResultCollectionViewCell" customModule="WeatherApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="382" height="50"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="382" height="50"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5nn-xk-hsi">
+                        <rect key="frame" x="0.0" y="0.0" width="382" height="50"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="location name g" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iYo-yR-rYe">
+                                <rect key="frame" x="20" y="0.0" width="296" height="50"/>
+                                <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="18"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron.right" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="19y-zB-fvb">
+                                <rect key="frame" x="341" y="14.666666666666668" width="25" height="21.333333333333325"/>
+                                <color key="tintColor" red="0.18039215689999999" green="0.35107067870000003" blue="0.67682949349999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="Q1X-RB-MVj"/>
+                                    <constraint firstAttribute="width" constant="25" id="oRN-Vv-j9d"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="50" id="5pV-Kg-Njd"/>
+                            <constraint firstItem="iYo-yR-rYe" firstAttribute="leading" secondItem="5nn-xk-hsi" secondAttribute="leading" constant="20" id="A8G-dJ-9zm"/>
+                            <constraint firstItem="iYo-yR-rYe" firstAttribute="top" secondItem="5nn-xk-hsi" secondAttribute="top" id="Bhv-O3-Ouc"/>
+                            <constraint firstAttribute="trailing" secondItem="19y-zB-fvb" secondAttribute="trailing" constant="16" id="QOg-8o-pn2"/>
+                            <constraint firstItem="19y-zB-fvb" firstAttribute="leading" secondItem="iYo-yR-rYe" secondAttribute="trailing" constant="25" id="ajx-Ti-b4X"/>
+                            <constraint firstAttribute="bottom" secondItem="iYo-yR-rYe" secondAttribute="bottom" id="eVm-bf-UTO"/>
+                            <constraint firstItem="19y-zB-fvb" firstAttribute="centerY" secondItem="5nn-xk-hsi" secondAttribute="centerY" id="yQg-jL-6i7"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstItem="5nn-xk-hsi" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="FfE-oj-l9y"/>
+                <constraint firstAttribute="bottom" secondItem="5nn-xk-hsi" secondAttribute="bottom" id="Hi4-Ib-27J"/>
+                <constraint firstItem="5nn-xk-hsi" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="aVQ-v9-sta"/>
+                <constraint firstAttribute="trailing" secondItem="5nn-xk-hsi" secondAttribute="trailing" id="hmw-f7-MDh"/>
+            </constraints>
+            <size key="customSize" width="382" height="50"/>
+            <connections>
+                <outlet property="locationLabel" destination="iYo-yR-rYe" id="JkC-mp-wmt"/>
+            </connections>
+            <point key="canvasLocation" x="308.39694656488547" y="-32.394366197183103"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="chevron.right" catalog="system" width="97" height="128"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

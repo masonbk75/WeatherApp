@@ -18,13 +18,14 @@ class WelcomeFlowController: FlowController, NavigatingFlowController {
     var navigator: UINavigationController
     private var locationManager: CLLocationManager?
     private var services: ServicesContainer
+    private var isFreshRequest: Bool = false
     
     weak var delegate: WelcomeFlowControllerDelegate?
     
     // MARK: - Initializers
-    init(services: ServicesContainer, locationManager: CLLocationManager?) {
+    init(services: ServicesContainer) {
         self.services = services
-        self.locationManager = locationManager
+        locationManager = CLLocationManager()
         navigator = UINavigationController()
         
         super.init(nibName: nil, bundle: nil)
@@ -46,33 +47,56 @@ class WelcomeFlowController: FlowController, NavigatingFlowController {
     }
 }
 
+// MARK: - Helpers
+private extension WelcomeFlowController {
+    
+    func startSearchFlow() {
+        let searchFlowController = SearchFlowController(services: services, isDismissable: false)
+        searchFlowController.delegate = self
+        navigator.pushViewController(searchFlowController, animated: true)
+    }
+}
+
 // MARK: - WelcomeViewControllerDelegate
 extension WelcomeFlowController: WelcomeViewControllerDelegate {
     
     func welcomeViewControllerDidRequestStart(_: WelcomeViewController) {
-        locationManager?.requestWhenInUseAuthorization()
+        if case .denied = locationManager?.authorizationStatus {
+            startSearchFlow()
+        } else {
+            isFreshRequest = true
+            locationManager?.requestWhenInUseAuthorization()
+        }
     }
 }
 
+// MARK: - SearchFlowControllerDelegate
+extension WelcomeFlowController: SearchFlowControllerDelegate {
+    
+    func searchFlowController(_: SearchFlowController, didFetch coordinates: CLLocationCoordinate2D) {
+        delegate?.welcomeFlowController(self, didFetch: coordinates)
+    }
+}
+
+// MARK: - CLLocationManagerDelegate
 extension WelcomeFlowController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.first {
-            delegate?.welcomeFlowController(self, didFetch: location.coordinate)
-        } else {
-            // go to search
-        }
+        guard let location = locations.first else { return }
+        delegate?.welcomeFlowController(self, didFetch: location.coordinate)
     }
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        if case .authorizedWhenInUse = manager.authorizationStatus {
-            locationManager?.requestLocation()
-        } else {
-            //go to search
+        locationManager?.requestLocation()
+        if case .denied = manager.authorizationStatus, isFreshRequest {
+            startSearchFlow()
         }
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        // go to search
+        if case .authorizedWhenInUse = manager.authorizationStatus {
+            debugPrint(error.localizedDescription)
+            startSearchFlow()
+        }
     }
 }

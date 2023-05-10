@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CurrentLocationCollectionViewCell" id="gTV-IL-0wX" customClass="CurrentLocationCollectionViewCell" customModule="WeatherApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="391" height="35"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="391" height="35"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZDj-PE-fbY">
+                        <rect key="frame" x="0.0" y="0.0" width="391" height="35"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="gVA-ga-TEJ">
+                                <rect key="frame" x="114.33333333333333" y="7.3333333333333339" width="162.33333333333337" height="20.333333333333329"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="location" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Z6Z-rf-w1M">
+                                        <rect key="frame" x="0.0" y="0.99999999999999822" width="25" height="18.666666666666664"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="25" id="hXH-fd-QsR"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9VZ-wp-neL">
+                                        <rect key="frame" x="35.000000000000021" y="0.0" width="127.33333333333331" height="20.333333333333332"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" systemColor="linkColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="35" id="3UG-nh-gKF"/>
+                            <constraint firstItem="gVA-ga-TEJ" firstAttribute="centerX" secondItem="ZDj-PE-fbY" secondAttribute="centerX" id="Wmt-uu-ZbE"/>
+                            <constraint firstItem="gVA-ga-TEJ" firstAttribute="centerY" secondItem="ZDj-PE-fbY" secondAttribute="centerY" id="xOv-Qe-uEk"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="ZDj-PE-fbY" secondAttribute="trailing" id="0FZ-Ja-k0p"/>
+                <constraint firstAttribute="bottom" secondItem="ZDj-PE-fbY" secondAttribute="bottom" id="M3D-Pd-em2"/>
+                <constraint firstItem="ZDj-PE-fbY" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="hRj-Aq-47v"/>
+                <constraint firstItem="ZDj-PE-fbY" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="sqQ-C3-M7X"/>
+            </constraints>
+            <size key="customSize" width="391" height="50"/>
+            <point key="canvasLocation" x="315.26717557251908" y="-32.394366197183103"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="location" catalog="system" width="128" height="121"/>
+        <systemColor name="linkColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>

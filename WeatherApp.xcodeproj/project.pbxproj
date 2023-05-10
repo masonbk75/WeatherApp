@@ -28,8 +28,18 @@
 		D645AE922A045FEA00112B10 /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645AE912A045FEA00112B10 /* WeatherData.swift */; };
 		D645AE942A046C3700112B10 /* NetworkingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D645AE932A046C3700112B10 /* NetworkingService.swift */; };
 		D645AE9A2A056CED00112B10 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = D645AE992A056CED00112B10 /* Keys.plist */; };
+		D677C5BB2A0AD85C00F5C033 /* PercentageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D677C5BA2A0AD85C00F5C033 /* PercentageView.swift */; };
 		D6C9E9CB2A057F62009DB59C /* Configurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C9E9CA2A057F62009DB59C /* Configurable.swift */; };
 		D6C9E9CD2A059848009DB59C /* WelcomeFlowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C9E9CC2A059848009DB59C /* WelcomeFlowController.swift */; };
+		D6C9E9CF2A094952009DB59C /* SearchFlowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C9E9CE2A094952009DB59C /* SearchFlowController.swift */; };
+		D6C9E9D12A097337009DB59C /* RecentSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C9E9D02A097337009DB59C /* RecentSearch.swift */; };
+		D6C9E9D42A098E9F009DB59C /* SearchCollectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C9E9D32A098E9F009DB59C /* SearchCollectionController.swift */; };
+		D6C9E9D72A09A095009DB59C /* SearchResultCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C9E9D52A09A095009DB59C /* SearchResultCollectionViewCell.swift */; };
+		D6C9E9D82A09A095009DB59C /* SearchResultCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6C9E9D62A09A095009DB59C /* SearchResultCollectionViewCell.xib */; };
+		D6C9E9DB2A09A2ED009DB59C /* CurrentLocationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C9E9D92A09A2ED009DB59C /* CurrentLocationCollectionViewCell.swift */; };
+		D6C9E9DC2A09A2ED009DB59C /* CurrentLocationCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6C9E9DA2A09A2ED009DB59C /* CurrentLocationCollectionViewCell.xib */; };
+		D6C9E9DF2A09B71E009DB59C /* SearchResultsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C9E9DD2A09B71E009DB59C /* SearchResultsHeader.swift */; };
+		D6C9E9E02A09B71E009DB59C /* SearchResultsHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6C9E9DE2A09B71E009DB59C /* SearchResultsHeader.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,8 +85,18 @@
 		D645AE912A045FEA00112B10 /* WeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
 		D645AE932A046C3700112B10 /* NetworkingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingService.swift; sourceTree = "<group>"; };
 		D645AE992A056CED00112B10 /* Keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
+		D677C5BA2A0AD85C00F5C033 /* PercentageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PercentageView.swift; sourceTree = "<group>"; };
 		D6C9E9CA2A057F62009DB59C /* Configurable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configurable.swift; sourceTree = "<group>"; };
 		D6C9E9CC2A059848009DB59C /* WelcomeFlowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeFlowController.swift; sourceTree = "<group>"; };
+		D6C9E9CE2A094952009DB59C /* SearchFlowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFlowController.swift; sourceTree = "<group>"; };
+		D6C9E9D02A097337009DB59C /* RecentSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearch.swift; sourceTree = "<group>"; };
+		D6C9E9D32A098E9F009DB59C /* SearchCollectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCollectionController.swift; sourceTree = "<group>"; };
+		D6C9E9D52A09A095009DB59C /* SearchResultCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCollectionViewCell.swift; sourceTree = "<group>"; };
+		D6C9E9D62A09A095009DB59C /* SearchResultCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchResultCollectionViewCell.xib; sourceTree = "<group>"; };
+		D6C9E9D92A09A2ED009DB59C /* CurrentLocationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentLocationCollectionViewCell.swift; sourceTree = "<group>"; };
+		D6C9E9DA2A09A2ED009DB59C /* CurrentLocationCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CurrentLocationCollectionViewCell.xib; sourceTree = "<group>"; };
+		D6C9E9DD2A09B71E009DB59C /* SearchResultsHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsHeader.swift; sourceTree = "<group>"; };
+		D6C9E9DE2A09B71E009DB59C /* SearchResultsHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchResultsHeader.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -175,6 +195,7 @@
 				D645AE792A040DF700112B10 /* RootFlowController.swift */,
 				D645AE7F2A04106400112B10 /* WeatherFlowController.swift */,
 				D6C9E9CC2A059848009DB59C /* WelcomeFlowController.swift */,
+				D6C9E9CE2A094952009DB59C /* SearchFlowController.swift */,
 			);
 			path = FlowControllers;
 			sourceTree = "<group>";
@@ -188,6 +209,8 @@
 				D645AE892A041BF100112B10 /* DetailsViewController.xib */,
 				D645AE8C2A041C2900112B10 /* SearchViewController.swift */,
 				D645AE8D2A041C2900112B10 /* SearchViewController.xib */,
+				D6C9E9D22A098E73009DB59C /* CollectionViewControllers */,
+				D677C5B92A0AD82F00F5C033 /* Views */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -205,8 +228,31 @@
 			isa = PBXGroup;
 			children = (
 				D645AE912A045FEA00112B10 /* WeatherData.swift */,
+				D6C9E9D02A097337009DB59C /* RecentSearch.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		D677C5B92A0AD82F00F5C033 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D677C5BA2A0AD85C00F5C033 /* PercentageView.swift */,
+				D6C9E9D52A09A095009DB59C /* SearchResultCollectionViewCell.swift */,
+				D6C9E9D62A09A095009DB59C /* SearchResultCollectionViewCell.xib */,
+				D6C9E9D92A09A2ED009DB59C /* CurrentLocationCollectionViewCell.swift */,
+				D6C9E9DA2A09A2ED009DB59C /* CurrentLocationCollectionViewCell.xib */,
+				D6C9E9DD2A09B71E009DB59C /* SearchResultsHeader.swift */,
+				D6C9E9DE2A09B71E009DB59C /* SearchResultsHeader.xib */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		D6C9E9D22A098E73009DB59C /* CollectionViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				D6C9E9D32A098E9F009DB59C /* SearchCollectionController.swift */,
+			);
+			path = CollectionViewControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -314,9 +360,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				D645AE9A2A056CED00112B10 /* Keys.plist in Resources */,
+				D6C9E9DC2A09A2ED009DB59C /* CurrentLocationCollectionViewCell.xib in Resources */,
 				D645AE532A04068900112B10 /* LaunchScreen.storyboard in Resources */,
+				D6C9E9E02A09B71E009DB59C /* SearchResultsHeader.xib in Resources */,
 				D645AE502A04068900112B10 /* Assets.xcassets in Resources */,
 				D645AE872A041BBB00112B10 /* WelcomeViewController.xib in Resources */,
+				D6C9E9D82A09A095009DB59C /* SearchResultCollectionViewCell.xib in Resources */,
 				D645AE8F2A041C2900112B10 /* SearchViewController.xib in Resources */,
 				D645AE8B2A041BF100112B10 /* DetailsViewController.xib in Resources */,
 			);
@@ -343,13 +392,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D677C5BB2A0AD85C00F5C033 /* PercentageView.swift in Sources */,
 				D645AE8E2A041C2900112B10 /* SearchViewController.swift in Sources */,
+				D6C9E9DF2A09B71E009DB59C /* SearchResultsHeader.swift in Sources */,
+				D6C9E9D42A098E9F009DB59C /* SearchCollectionController.swift in Sources */,
 				D645AE7E2A040E5400112B10 /* ServicesContainer.swift in Sources */,
 				D645AE862A041BBB00112B10 /* WelcomeViewController.swift in Sources */,
+				D6C9E9CF2A094952009DB59C /* SearchFlowController.swift in Sources */,
+				D6C9E9D12A097337009DB59C /* RecentSearch.swift in Sources */,
 				D645AE942A046C3700112B10 /* NetworkingService.swift in Sources */,
+				D6C9E9D72A09A095009DB59C /* SearchResultCollectionViewCell.swift in Sources */,
 				D645AE8A2A041BF100112B10 /* DetailsViewController.swift in Sources */,
 				D645AE802A04106400112B10 /* WeatherFlowController.swift in Sources */,
 				D6C9E9CD2A059848009DB59C /* WelcomeFlowController.swift in Sources */,
+				D6C9E9DB2A09A2ED009DB59C /* CurrentLocationCollectionViewCell.swift in Sources */,
 				D645AE922A045FEA00112B10 /* WeatherData.swift in Sources */,
 				D645AE442A04068900112B10 /* AppDelegate.swift in Sources */,
 				D6C9E9CB2A057F62009DB59C /* Configurable.swift in Sources */,

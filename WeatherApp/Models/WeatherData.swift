@@ -6,9 +6,11 @@
 //
 
 import Foundation
+import CoreLocation
 
 // MARK: - WeatherData
 struct WeatherData: Decodable {
+    let coord: Coordinates
     let cityName: String
     let overview: [Overview]
     let mainTemp: MainTemperature
@@ -18,7 +20,7 @@ struct WeatherData: Decodable {
     let wind: Wind
     
     enum CodingKeys: String, CodingKey {
-        case rain, snow, clouds, wind
+        case rain, snow, clouds, wind, coord
         case cityName = "name"
         case overview = "weather"
         case mainTemp = "main"
@@ -26,6 +28,7 @@ struct WeatherData: Decodable {
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.coord = try container.decode(Coordinates.self, forKey: .coord)
         self.cityName = try container.decode(String.self, forKey: .cityName)
         self.overview = try container.decode([Overview].self, forKey: .overview)
         self.mainTemp = try container.decode(MainTemperature.self, forKey: .mainTemp)
@@ -34,6 +37,12 @@ struct WeatherData: Decodable {
         self.clouds = try container.decode(Clouds.self, forKey: .clouds)
         self.wind = try container.decode(Wind.self, forKey: .wind)
     }
+}
+
+// MARK: - Coordinates
+struct Coordinates: Decodable {
+    let lon: CLLocationDegrees
+    let lat: CLLocationDegrees
 }
 
 // MARK: - MainTemperature
@@ -112,7 +121,6 @@ struct Snow: Decodable {
 struct Wind: Decodable {
     let speed: Double
     let deg: Double
-//    let gust: Double?
 }
 
 // MARK: - Clouds
