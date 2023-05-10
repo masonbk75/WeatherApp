@@ -20,18 +20,19 @@ enum NetworkError: Error {
 class NetworkingService {
     
     // MARK: - Properties
-    let environment: Environment
+    // Initialize NetworkService with an environment to use API key stored in .gitignore plist
+    // let environment: Environment
     
-    private let key: String
+    private let key: String = "&appid=91ef6c9302ebeda483a478f5b7686ca4" // Hard coding this to fix compile issue
     // Given more time I would have set up a safer way to construct all URLs and their parameters
     private let weatherBaseUrl: String = "https://api.openweathermap.org/data/2.5/weather?"
     private let geocodingBaseUrl: String = "https://api.openweathermap.org/geo/1.0/direct?"
     
     // MARK: - Initializer
-    init(environment: Environment) {
-        self.environment = environment
-        self.key = environment.SERVICE_API_KEY
-    }
+//    init(environment: Environment) {
+//        self.environment = environment
+//        self.key = environment.SERVICE_API_KEY
+//    }
     
     // MARK: - Network
     func fetchWeatherData(for coordinates: CLLocationCoordinate2D, completion: @escaping (Result<WeatherData, NetworkError>) -> Void) {
