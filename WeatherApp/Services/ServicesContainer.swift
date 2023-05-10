@@ -16,7 +16,7 @@ struct ServicesContainer {
     
     // MARK: - Start
     static func configureServices() -> ServicesContainer {
-        .init(networkingService: NetworkingService(),
+        .init(networkingService: NetworkingService(environment: Environment()),
               searchHistoryService: SearchHistoryService(),
               iconService: IconService())
     }
